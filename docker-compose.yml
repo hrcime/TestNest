@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  api:
+    image: node:lts
+    command: >
+      bash -c "npm install"
+    entrypoint: [ "npm", "start" ]
+    working_dir: /app
+    volumes:
+      - "./:/app"
+    ports:
+      - "3000:3000"
+
+  test:
+    image: node:lts
+    command: >
+      bash -c "npm install && npm run test && curl -I api:3000"
+    working_dir: /app
+    volumes:
+      - "./:/app"
